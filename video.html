@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Netflix Video Player</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      background:black;
+      overflow:hidden;
+    }
+
+    video{
+      width:100vw;
+      height:100vh;
+      object-fit:cover;
+    }
+
+    .back-btn{
+      position:absolute;
+      top:20px;
+      left:20px;
+      z-index:10;
+      padding:12px 20px;
+      border:none;
+      background:rgba(0,0,0,0.6);
+      color:white;
+      font-size:18px;
+      cursor:pointer;
+      border-radius:5px;
+    }
+
+    .back-btn:hover{
+      background:black;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- BACK BUTTON -->
+
+  <button class="back-btn"
+          onclick="window.location.href='home.html'">
+
+    ← Back
+
+  </button>
+
+  <!-- FULL SCREEN VIDEO -->
+
+  <video autoplay controls>
+
+    <source src="video/movie.mp4" type="video/mp4">
+
+    Your browser does not support video.
+
+  </video>
+
+</body>
+</html>

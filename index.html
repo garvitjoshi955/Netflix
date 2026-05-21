@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Who's Watching</title>
+  <title>Who's Watching?</title>
 
   <style>
 
@@ -11,13 +11,14 @@
       margin:0;
       padding:0;
       box-sizing:border-box;
-      font-family:Arial;
+      font-family:Arial, sans-serif;
     }
 
     body{
       background:#141414;
       color:white;
       height:100vh;
+
       display:flex;
       justify-content:center;
       align-items:center;
@@ -25,41 +26,49 @@
     }
 
     h1{
-      font-size:60px;
-      margin-bottom:50px;
+      font-size:65px;
+      margin-bottom:60px;
+      font-weight:500;
     }
 
     .profiles{
       display:flex;
-      gap:30px;
+      gap:50px;
     }
 
     .profile{
       text-align:center;
+      cursor:pointer;
+      transition:0.3s;
     }
 
     .profile img{
-      width:160px;
-      height:160px;
+      width:180px;
+      height:180px;
       border-radius:10px;
-      transition:0.3s;
       border:4px solid transparent;
+      object-fit:cover;
+      transition:0.3s;
     }
 
-    .profile img:hover{
+    .profile p{
+      margin-top:15px;
+      font-size:22px;
+      color:gray;
+      transition:0.3s;
+    }
+
+    .profile:hover img{
       border-color:white;
       transform:scale(1.05);
     }
 
-    .profile p{
-      margin-top:10px;
-      color:gray;
-      font-size:20px;
+    .profile:hover p{
+      color:white;
     }
 
     a{
       text-decoration:none;
-      color:white;
     }
 
   </style>
@@ -70,27 +79,32 @@
 
   <div class="profiles">
 
-    <!-- LINK TO HOME PAGE -->
+    <!-- PROFILE 1 -->
 
     <a href="home.html">
+
       <div class="profile">
-        <img src="user1.jpg">
-        <p>Yashi</p>
+
+        <img src="user1.jpeg" alt="Yashi">
+
+        <p>US>>></p>
+
       </div>
+
     </a>
 
-    <a href="home.html">
-      <div class="profile">
-        <img src="user2.jpg">
-        <p>Garvv</p>
-      </div>
-    </a>
+    <!-- PROFILE 2 -->
 
     <a href="home.html">
+
       <div class="profile">
-        <img src="user3.jpg">
-        <p>US>>>3</p>
+
+        <img src="user2.jpeg" alt="Garvv">
+
+        <p>Yavi>>></p>
+
       </div>
+
     </a>
 
   </div>

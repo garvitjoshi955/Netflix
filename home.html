@@ -3,227 +3,1089 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Netflix Home</title>
+
+  <title>Love Story | Garvv & Yashi</title>
 
   <style>
 
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial, sans-serif;
+    /* ================================
+       RESET & GLOBAL
+    ================================= */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    body{
-      background:black;
-      color:white;
+    :root {
+      --primary: #e50914;
+      --black: #080808;
+      --card: #181818;
+      --text-muted: #b3b3b3;
     }
 
-    /* NAVBAR */
-
-    .navbar{
-      background:#111;
-      padding:20px 40px;
-      font-size:32px;
-      color:red;
-      font-weight:bold;
-      position:fixed;
-      width:100%;
-      top:0;
-      z-index:100;
+    html {
+      scroll-behavior: smooth;
     }
 
-    /* BANNER */
-
-    .banner{
-      height:85vh;
-      display:flex;
-      align-items:center;
-      padding-left:60px;
-      position:relative;
-      overflow:hidden;
+    body {
+      background: var(--black);
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+      overflow-x: hidden;
     }
 
-    .banner img{
-      position:absolute;
-      top:0;
-      left:0;
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      z-index:-1;
+
+    /* ================================
+       NAVBAR
+    ================================= */
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 72px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 0 5%;
+
+      z-index: 1000;
+
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.95),
+        rgba(0, 0, 0, 0.5),
+        transparent
+      );
+
+      transition: 0.3s ease;
     }
 
-    /* DARK OVERLAY */
-
-    .banner::after{
-      content:"";
-      position:absolute;
-      width:100%;
-      height:100%;
-      top:0;
-      left:0;
-      background:rgba(0,0,0,0.45);
-      z-index:-1;
+    .navbar.scrolled {
+      background: rgba(10, 10, 10, 0.96);
+      backdrop-filter: blur(12px);
     }
 
-    /* CONTENT */
+    .logo {
+      color: var(--primary);
 
-    .content{
-      max-width:550px;
+      font-size: 30px;
+      font-weight: 900;
+
+      letter-spacing: 1px;
+      text-transform: uppercase;
     }
 
-    .content h1{
-      font-size:70px;
-      margin-bottom:20px;
+    .nav-right {
+      color: #dddddd;
+      font-size: 14px;
     }
 
-    .content p{
-      font-size:20px;
-      line-height:1.6;
-      margin-bottom:25px;
+
+    /* ================================
+       HERO / BANNER
+    ================================= */
+
+    .banner {
+      min-height: 92vh;
+
+      display: flex;
+      align-items: center;
+
+      position: relative;
+
+      padding: 120px 8% 100px;
+
+      overflow: hidden;
     }
 
-    /* BUTTONS */
+    .banner-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
 
-    .buttons button{
-      padding:12px 28px;
-      border:none;
-      cursor:pointer;
-      font-size:18px;
-      border-radius:5px;
-      margin-right:10px;
-      transition:0.3s;
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      z-index: -3;
     }
 
-    .play{
-      background:white;
-      color:black;
+
+    /* DARK CINEMATIC OVERLAY */
+
+    .banner::before {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.92) 0%,
+          rgba(0, 0, 0, 0.72) 35%,
+          rgba(0, 0, 0, 0.2) 70%,
+          rgba(0, 0, 0, 0.25) 100%
+        ),
+
+        linear-gradient(
+          to top,
+          #080808 0%,
+          transparent 40%
+        );
+
+      z-index: -2;
     }
 
-    .play:hover{
-      background:#ddd;
+
+    /* ================================
+       HERO CONTENT
+    ================================= */
+
+    .content {
+      max-width: 650px;
+      animation: fadeUp 1s ease forwards;
     }
 
-    .info{
-      background:rgba(109,109,110,0.7);
-      color:white;
+    .badge {
+      display: inline-block;
+
+      padding: 8px 14px;
+      margin-bottom: 20px;
+
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 30px;
+
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+
+      color: #dddddd;
+
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 2px;
     }
 
-    .info:hover{
-      background:rgba(109,109,110,0.4);
+    .content h1 {
+      font-size: clamp(50px, 7vw, 90px);
+
+      line-height: 0.95;
+
+      letter-spacing: -3px;
+
+      margin-bottom: 22px;
     }
 
-    /* MOVIE SECTION */
-
-    .movies{
-      padding:20px;
-      margin-top:-40px;
-      position:relative;
-      z-index:10;
+    .content h1 span {
+      color: var(--primary);
     }
 
-    .movies h2{
-      margin-bottom:18px;
-      font-size:30px;
+    .meta {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+
+      margin-bottom: 20px;
+
+      color: #dddddd;
+
+      font-size: 15px;
+      font-weight: 600;
     }
 
-    /* MOVIE ROW */
+    .content p {
+      max-width: 570px;
 
-    .row{
-      display:flex;
-      gap:15px;
-      overflow-x:auto;
-      padding:10px 0;
-      scrollbar-width:none;
+      margin-bottom: 30px;
+
+      color: #dddddd;
+
+      font-size: 18px;
+      line-height: 1.7;
     }
 
-    .row::-webkit-scrollbar{
-      display:none;
+
+    /* ================================
+       BUTTONS
+    ================================= */
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
-    /* MOVIE POSTERS */
+    .btn {
+      border: none;
+      outline: none;
 
-    .row img{
-      width:200px;
-      height:300px;
-      object-fit:cover;
-      border-radius:8px;
-      transition:0.3s;
-      cursor:pointer;
-      flex-shrink:0;
+      padding: 14px 28px;
+
+      border-radius: 6px;
+
+      font-size: 16px;
+      font-weight: 700;
+
+      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      gap: 8px;
+
+      transition: all 0.25s ease;
     }
 
-    .row img:hover{
-      transform:scale(1.08);
+    .play {
+      background: white;
+      color: black;
+    }
+
+    .play:hover {
+      background: #e5e5e5;
+      transform: translateY(-2px);
+    }
+
+    .info {
+      background: rgba(109, 109, 110, 0.75);
+      color: white;
+
+      backdrop-filter: blur(10px);
+    }
+
+    .info:hover {
+      background: rgba(109, 109, 110, 0.95);
+      transform: translateY(-2px);
+    }
+
+
+    /* ================================
+       MOVIES SECTION
+    ================================= */
+
+    .movies {
+      position: relative;
+      z-index: 5;
+
+      margin-top: -55px;
+
+      padding: 20px 5% 70px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin-bottom: 18px;
+    }
+
+    .section-header h2 {
+      font-size: 28px;
+      letter-spacing: -0.5px;
+    }
+
+    .section-header span {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+
+    /* ================================
+       HORIZONTAL MOVIE ROW
+    ================================= */
+
+    .row {
+      display: flex;
+      gap: 16px;
+
+      overflow-x: auto;
+
+      padding: 12px 4px 30px;
+
+      scrollbar-width: none;
+      scroll-behavior: smooth;
+
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .row::-webkit-scrollbar {
+      display: none;
+    }
+
+
+    /* ================================
+       MOVIE CARD
+    ================================= */
+
+    .movie-card {
+      position: relative;
+
+      min-width: 190px;
+      height: 285px;
+
+      flex-shrink: 0;
+
+      overflow: hidden;
+
+      border-radius: 10px;
+
+      background: var(--card);
+
+      cursor: pointer;
+
+      transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+    }
+
+    .movie-card img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      display: block;
+
+      transition: transform 0.4s ease;
+    }
+
+
+    /* DARK GRADIENT ON POSTER */
+
+    .movie-card::after {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.9),
+        transparent 60%
+      );
+    }
+
+    .movie-card:hover {
+      transform: scale(1.06);
+
+      z-index: 10;
+
+      box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    .movie-card:hover img {
+      transform: scale(1.08);
+    }
+
+    .movie-title {
+      position: absolute;
+
+      left: 15px;
+      bottom: 15px;
+
+      z-index: 2;
+
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+
+    /* ================================
+       MODAL
+    ================================= */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+
+      display: none;
+
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+
+      background: rgba(0, 0, 0, 0.78);
+
+      backdrop-filter: blur(8px);
+
+      z-index: 2000;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-box {
+      position: relative;
+
+      width: min(500px, 100%);
+
+      padding: 38px;
+
+      border-radius: 16px;
+
+      background: #181818;
+
+      border:
+        1px solid rgba(255, 255, 255, 0.1);
+
+      animation: modalPop 0.3s ease;
+    }
+
+    .close {
+      position: absolute;
+
+      top: 10px;
+      right: 16px;
+
+      border: none;
+      background: transparent;
+
+      color: white;
+
+      font-size: 30px;
+
+      cursor: pointer;
+    }
+
+    .modal-box h2 {
+      margin-bottom: 15px;
+      font-size: 30px;
+    }
+
+    .modal-box p {
+      color: #bbbbbb;
+      line-height: 1.7;
+    }
+
+
+    /* ================================
+       ANIMATIONS
+    ================================= */
+
+    @keyframes fadeUp {
+
+      from {
+        opacity: 0;
+        transform: translateY(35px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+    }
+
+
+    @keyframes modalPop {
+
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+    }
+
+
+    /* =====================================
+       MOBILE RESPONSIVE - NETFLIX STYLE
+    ====================================== */
+
+    @media (max-width: 768px) {
+
+
+      /* NAVBAR */
+
+      .navbar {
+        height: 60px;
+        padding: 0 18px;
+
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.9),
+          transparent
+        );
+      }
+
+      .navbar.scrolled {
+        background: rgba(10, 10, 10, 0.96);
+      }
+
+      .logo {
+        font-size: 21px;
+        letter-spacing: 0.5px;
+      }
+
+      .nav-right {
+        display: none;
+      }
+
+
+      /* MOBILE HERO */
+
+      .banner {
+        height: 88vh;
+        min-height: 650px;
+
+        display: flex;
+        align-items: flex-end;
+
+        padding: 0 20px 90px;
+      }
+
+
+      /* MOBILE IMAGE */
+
+      .banner-bg {
+        object-position: center top;
+      }
+
+
+      /* NETFLIX CINEMATIC GRADIENT */
+
+      .banner::before {
+        background:
+          linear-gradient(
+            to top,
+            #080808 0%,
+            rgba(8, 8, 8, 0.96) 12%,
+            rgba(8, 8, 8, 0.55) 45%,
+            rgba(0, 0, 0, 0.05) 75%
+          );
+      }
+
+
+      /* MOBILE CONTENT */
+
+      .content {
+        width: 100%;
+        max-width: 100%;
+
+        text-align: center;
+      }
+
+      .badge {
+        font-size: 10px;
+
+        letter-spacing: 1.5px;
+
+        padding: 6px 11px;
+
+        margin-bottom: 14px;
+      }
+
+      .content h1 {
+        font-size: clamp(42px, 13vw, 65px);
+
+        line-height: 1;
+
+        letter-spacing: -2px;
+
+        margin-bottom: 15px;
+      }
+
+
+      /* META */
+
+      .meta {
+        justify-content: center;
+
+        gap: 8px;
+
+        margin-bottom: 14px;
+
+        font-size: 11px;
+
+        flex-wrap: wrap;
+      }
+
+      .meta span {
+        white-space: nowrap;
+      }
+
+
+      /* DESCRIPTION */
+
+      .content p {
+        max-width: 340px;
+
+        margin: 0 auto 22px;
+
+        font-size: 14px;
+
+        line-height: 1.5;
+
+        color: #d0d0d0;
+      }
+
+
+      /* BUTTONS */
+
+      .buttons {
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+
+        gap: 10px;
+      }
+
+      .btn {
+        min-width: 135px;
+
+        padding: 12px 15px;
+
+        font-size: 14px;
+
+        border-radius: 5px;
+      }
+
+
+      /* MOVIE SECTION */
+
+      .movies {
+        margin-top: -45px;
+
+        padding: 0 0 50px;
+      }
+
+      .section-header {
+        padding: 0 20px;
+
+        margin-bottom: 8px;
+      }
+
+      .section-header h2 {
+        font-size: 20px;
+      }
+
+      .section-header span {
+        font-size: 11px;
+      }
+
+
+      /* NETFLIX HORIZONTAL SCROLL */
+
+      .row {
+        gap: 9px;
+
+        padding: 10px 20px 30px;
+
+        scroll-snap-type: x proximity;
+      }
+
+
+      /* MOBILE MOVIE CARDS */
+
+      .movie-card {
+        min-width: 125px;
+        width: 125px;
+
+        height: 188px;
+
+        border-radius: 5px;
+
+        scroll-snap-align: start;
+      }
+
+      /* Disable desktop hover effect */
+
+      .movie-card:hover {
+        transform: none;
+        box-shadow: none;
+      }
+
+      .movie-card:hover img {
+        transform: none;
+      }
+
+      .movie-title {
+        left: 9px;
+        bottom: 9px;
+
+        font-size: 11px;
+      }
+
+
+      /* MOBILE MODAL */
+
+      .modal {
+        padding: 18px;
+      }
+
+      .modal-box {
+        padding: 30px 22px;
+
+        border-radius: 12px;
+      }
+
+      .modal-box h2 {
+        font-size: 24px;
+      }
+
+      .modal-box p {
+        font-size: 14px;
+      }
+
+    }
+
+
+    /* =====================================
+       SMALL MOBILE
+    ====================================== */
+
+    @media (max-width: 380px) {
+
+      .banner {
+        min-height: 600px;
+        padding-bottom: 75px;
+      }
+
+      .content h1 {
+        font-size: 42px;
+      }
+
+      .content p {
+        font-size: 13px;
+        max-width: 300px;
+      }
+
+      .btn {
+        min-width: 125px;
+        padding: 11px 12px;
+      }
+
+      .movie-card {
+        min-width: 110px;
+        width: 110px;
+
+        height: 165px;
+      }
+
     }
 
   </style>
 </head>
+
+
 <body>
 
-  <!-- NAVBAR -->
 
-  <div class="navbar">
-    LOVE STORY
-  </div>
+  <!-- ================================
+       NAVBAR
+  ================================= -->
 
-  <!-- BANNER -->
+  <nav class="navbar" id="navbar">
 
-  <div class="banner">
+    <div class="logo">
+      LOVE STORY
+    </div>
 
-    <img src="banner.jpeg" alt="Banner">
+    <div class="nav-right">
+      Garvv ❤️ Yashi
+    </div>
+
+  </nav>
+
+
+
+  <!-- ================================
+       HERO SECTION
+  ================================= -->
+
+  <section class="banner">
+
+    <img
+      src="banner.jpeg"
+      alt="Love Story Banner"
+      class="banner-bg"
+    >
+
 
     <div class="content">
 
-      <h1>Fall in Love</h1>
+      <div class="badge">
+        A GARVV ORIGINAL STORY
+      </div>
+
+
+      <h1>
+        Fall in <span>Love.</span>
+      </h1>
+
+
+      <div class="meta">
+
+        <span>❤️ Love Story</span>
+        <span>•</span>
+        <span>2026</span>
+        <span>•</span>
+        <span>Garvv & Yashi</span>
+
+      </div>
+
 
       <p>
-        When we meet ? FT. Garvv & Yashi ❤️
+        When two stories unexpectedly cross paths,
+        every little moment becomes a memory worth
+        keeping forever. A story featuring Garvv & Yashi.
       </p>
+
 
       <div class="buttons">
 
-        <!-- PLAY BUTTON -->
-
-        <button class="play"
-        onclick="window.location.href='video.html'">
-
+        <button
+          class="btn play"
+          onclick="window.location.href='video.html'"
+        >
           ▶ Play
-
         </button>
 
-        <!-- INFO BUTTON -->
 
-        <button class="info">
-
-          More Info
-
+        <button
+          class="btn info"
+          onclick="openModal()"
+        >
+          ⓘ More Info
         </button>
 
       </div>
 
     </div>
 
-  </div>
+  </section>
 
-  <!-- MOVIES SECTION -->
 
-  <div class="movies">
 
-    <h2>Popular</h2>
+  <!-- ================================
+       POPULAR MOMENTS
+  ================================= -->
+
+  <section class="movies">
+
+    <div class="section-header">
+
+      <h2>Popular Moments</h2>
+
+      <span>Our Story →</span>
+
+    </div>
+
+
 
     <div class="row">
 
-      <img src="movie1.jpeg" alt="">
-      <img src="movie2.jpeg" alt="">
-      <img src="movie3.jpeg" alt="">
-      <img src="movie4.jpeg" alt="">
-      <img src="movie5.jpeg" alt="">
+
+      <div class="movie-card">
+
+        <img
+          src="movie1.jpeg"
+          alt="The Beginning"
+        >
+
+        <div class="movie-title">
+          The Beginning
+        </div>
+
+      </div>
+
+
+
+      <div class="movie-card">
+
+        <img
+          src="movie2.jpeg"
+          alt="Beautiful Memories"
+        >
+
+        <div class="movie-title">
+          Beautiful Memories
+        </div>
+
+      </div>
+
+
+
+      <div class="movie-card">
+
+        <img
+          src="movie3.jpeg"
+          alt="Together"
+        >
+
+        <div class="movie-title">
+          Together
+        </div>
+
+      </div>
+
+
+
+      <div class="movie-card">
+
+        <img
+          src="movie4.jpeg"
+          alt="Our Moments"
+        >
+
+        <div class="movie-title">
+          Our Moments
+        </div>
+
+      </div>
+
+
+
+      <div class="movie-card">
+
+        <img
+          src="movie5.jpeg"
+          alt="Forever"
+        >
+
+        <div class="movie-title">
+          Forever & Always
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ================================
+       MORE INFO MODAL
+  ================================= -->
+
+  <div class="modal" id="infoModal">
+
+    <div class="modal-box">
+
+      <button
+        class="close"
+        onclick="closeModal()"
+      >
+        ×
+      </button>
+
+
+      <h2>Our Love Story ❤️</h2>
+
+
+      <p>
+        Every story has a beginning. Ours started with
+        small conversations, unforgettable memories and
+        moments that slowly became something special.
+        This is a little collection of our journey together.
+      </p>
 
     </div>
 
   </div>
+
+
+
+  <!-- ================================
+       JAVASCRIPT
+  ================================= -->
+
+  <script>
+
+    /* Navbar background changes on scroll */
+
+    window.addEventListener("scroll", function () {
+
+      const navbar =
+        document.getElementById("navbar");
+
+      if (window.scrollY > 50) {
+
+        navbar.classList.add("scrolled");
+
+      } else {
+
+        navbar.classList.remove("scrolled");
+
+      }
+
+    });
+
+
+
+    /* OPEN MORE INFO MODAL */
+
+    function openModal() {
+
+      document
+        .getElementById("infoModal")
+        .classList.add("active");
+
+    }
+
+
+
+    /* CLOSE MODAL */
+
+    function closeModal() {
+
+      document
+        .getElementById("infoModal")
+        .classList.remove("active");
+
+    }
+
+
+
+    /* CLOSE WHEN CLICKING OUTSIDE */
+
+    document
+      .getElementById("infoModal")
+      .addEventListener("click", function (event) {
+
+        if (event.target === this) {
+
+          closeModal();
+
+        }
+
+      });
+
+
+
+    /* CLOSE MODAL WITH ESC KEY */
+
+    document.addEventListener("keydown", function (event) {
+
+      if (event.key === "Escape") {
+
+        closeModal();
+
+      }
+
+    });
+
+  </script>
 
 </body>
 </html>
